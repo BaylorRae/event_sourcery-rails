@@ -24,11 +24,11 @@ $ rails generate event_sourcery_rails:install
 At this point you will have an initializer to configure EventSourcery and a
 rake file with the following tasks.
 
-```
-rails event_sourcery:db:migrate # create the event sourcery schema
-rails event_sourcery:processors:setup # create projector schemas
-rails event_sourcery:processors:reset # drop and recreate projector schemas and data
-rails event_sourcery:processors:run # start event stream processors
+```bash
+$ rails event_sourcery:db:migrate # create the event sourcery schema
+$ rails event_sourcery:processors:setup # create projector schemas
+$ rails event_sourcery:processors:reset # drop and recreate projector schemas and data
+$ rails event_sourcery:processors:run # start event stream processors
 ```
 
 Typically you'll have the following in your Procfile.
