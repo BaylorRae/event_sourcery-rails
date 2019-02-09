@@ -21,8 +21,8 @@ Next, your need to run the generator:
 $ rails generate event_sourcery_rails:install
 ```
 
-At this point you will have an initializer to configure EventSourcery and a
-rake file with the following tasks.
+At this point you will have an initializer to configure EventSourcery and the
+following Rake tasks.
 
 ```bash
 $ rails event_sourcery:db:migrate # create the event sourcery schema
