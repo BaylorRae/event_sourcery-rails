@@ -1,4 +1,6 @@
 # EventSourcery::Rails
+[![Build Status](https://travis-ci.org/BaylorRae/event_sourcery-rails.svg?branch=master)](https://travis-ci.org/BaylorRae/event_sourcery-rails)
+
 Short description and motivation.
 
 ## Usage
