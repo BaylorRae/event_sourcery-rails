@@ -2,7 +2,27 @@
 Short description and motivation.
 
 ## Usage
-How to use my plugin.
+
+### Commands
+
+EventSourcery::Rails adds an optional base class for commands to enforce
+instantiating commands with an `aggregate_id` and required parameters as keyword
+arguments. Defined attributes are available with an `attr_reader`.
+
+```ruby
+class AddUser < EventSourcery::Rails::Command
+  attributes :name, :email
+end
+
+AddUser.new # => raises ArgumentError.new("missing keywords: aggregate_id, name, email")
+
+command = AddUser.new(aggregate_id: 'aggregate-id',
+                      name: 'name',
+                      email: 'email')
+command.aggregate_id # => "aggregate-id"
+command.name # => "name"
+command.email # => "email"
+```
 
 ## Installation
 Add the following line to your Gemfile.
