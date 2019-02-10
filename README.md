@@ -14,6 +14,47 @@ the `on` command binding. I also wanted to remove the boilerplate for
 instantiating and validating commands since we can load
 `ActiveModel::Validations` for free.
 
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Commands](#commands)
+  - [Command Handlers](#command-handlers)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Installation
+Add the following line to your Gemfile.
+
+```ruby
+gem 'event_sourcery'
+gem 'event_sourcery-postgres'
+gem 'event_sourcery-rails'
+```
+
+Then run `bundle install`
+
+Next, your need to run the generator:
+
+```bash
+$ rails generate event_sourcery_rails:install
+```
+
+At this point you will have an initializer to configure EventSourcery and the
+following Rake tasks.
+
+```bash
+$ rails event_sourcery:db:migrate # create the event sourcery schema
+$ rails event_sourcery:processors:setup # create projector schemas
+$ rails event_sourcery:processors:reset # drop and recreate projector schemas and data
+$ rails event_sourcery:processors:run # start event stream processors
+```
+
+Typically you'll have the following in your Procfile.
+
+```yaml
+web: rails server
+processors: rails event_sourcery:processors:run
+```
+
 ## Usage
 
 ### Commands
@@ -79,40 +120,6 @@ class UserCommandHandler
     repository.save(aggregate)
   end
 end
-```
-
-## Installation
-Add the following line to your Gemfile.
-
-```ruby
-gem 'event_sourcery'
-gem 'event_sourcery-postgres'
-gem 'event_sourcery-rails'
-```
-
-Then run `bundle install`
-
-Next, your need to run the generator:
-
-```bash
-$ rails generate event_sourcery_rails:install
-```
-
-At this point you will have an initializer to configure EventSourcery and the
-following Rake tasks.
-
-```bash
-$ rails event_sourcery:db:migrate # create the event sourcery schema
-$ rails event_sourcery:processors:setup # create projector schemas
-$ rails event_sourcery:processors:reset # drop and recreate projector schemas and data
-$ rails event_sourcery:processors:run # start event stream processors
-```
-
-Typically you'll have the following in your Procfile.
-
-```yaml
-web: rails server
-processors: rails event_sourcery:processors:run
 ```
 
 ## Contributing
