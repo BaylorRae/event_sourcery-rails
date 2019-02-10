@@ -9,9 +9,13 @@ EventSourcery::Rails adds an optional base class for commands to enforce
 instantiating commands with an `aggregate_id` and required parameters as keyword
 arguments. Defined attributes are available with an `attr_reader`.
 
+Includes [`ActiveModel::Validations`][active_model_validations] for validating
+attributes.
+
 ```ruby
 class AddUser < EventSourcery::Rails::Command
   attributes :name, :email
+  validates_presence_of :name, :email
 end
 
 AddUser.new # => raises ArgumentError.new("missing keywords: aggregate_id, name, email")
@@ -22,6 +26,8 @@ command = AddUser.new(aggregate_id: 'aggregate-id',
 command.aggregate_id # => "aggregate-id"
 command.name # => "name"
 command.email # => "email"
+
+command.valid? # => true
 ```
 
 ### Command Handlers
@@ -101,3 +107,5 @@ Please submit issues and pull requests for bugs, features or ideas.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+[active_model_validations]: https://api.rubyonrails.org/classes/ActiveModel/Validations.html#module-ActiveModel::Validations-label-Active+Model+Validations
