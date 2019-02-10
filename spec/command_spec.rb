@@ -3,11 +3,11 @@ require "rails_helper"
 module EventSourcery
   module Rails
     describe Command do
+      let(:aggregate_id) { double(:aggregate_id) }
+
+      before { stub_const('ExampleCommand', Class.new(EventSourcery::Rails::Command)) }
+
       context "attributes" do
-        let(:aggregate_id) { double(:aggregate_id) }
-
-        before { stub_const('ExampleCommand', Class.new(EventSourcery::Rails::Command)) }
-
         context "aggregate_id" do
           it "requires an aggregate_id with no attributes" do
             expect do
@@ -74,6 +74,24 @@ module EventSourcery
             name: 'bob',
             email: 'bob@example.com'
           })
+        end
+      end
+
+      context "validations" do
+        it "validates known attributes" do
+          ExampleCommand.class_eval do
+            attributes :name, :email
+            validates_presence_of :name, :email
+          end
+
+          command = ExampleCommand.new(aggregate_id: nil,
+                                       name: nil,
+                                       email: nil)
+          command.valid?
+          expect(command.errors.full_messages).to eq([
+            "Name can't be blank",
+            "Email can't be blank"
+          ])
         end
       end
     end

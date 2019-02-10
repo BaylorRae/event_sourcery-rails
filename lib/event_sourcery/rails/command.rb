@@ -1,6 +1,8 @@
 module EventSourcery
   module Rails
     class Command
+      include ActiveModel::Validations
+
       attr_reader :aggregate_id
 
       def initialize(aggregate_id:)
