@@ -2,6 +2,6 @@ require "event_sourcery/rails/railtie"
 
 module EventSourcery
   module Rails
-    # Your code goes here...
+    autoload :Command, "event_sourcery/rails/command"
   end
 end
