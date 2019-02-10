@@ -1,7 +1,18 @@
 # EventSourcery::Rails
 [![Build Status](https://travis-ci.org/BaylorRae/event_sourcery-rails.svg?branch=master)](https://travis-ci.org/BaylorRae/event_sourcery-rails)
 
-Short description and motivation.
+I wanted to add [Event Sourcing][event_sourcing_fowler] to my Rails application
+and after using several libraries/framework settled on EventSourcery from
+Envato. After creating a demo application based on their todo example with Rails
+I realized the installation steps are pretty simple. With this gem it can be
+installed and configured with a single rake task!
+
+In addition to automating the install, I also wanted to incorporate the DSL from
+Sequent and RailsEventStore for commands and command handlers. I like the
+command handler itself wrapping single responsibility around an aggregate with
+the `on` command binding. I also wanted to remove the boilerplate for
+instantiating and validating commands since we can load
+`ActiveModel::Validations` for free.
 
 ## Usage
 
@@ -110,4 +121,5 @@ Please submit issues and pull requests for bugs, features or ideas.
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
+[event_sourcing_fowler]: https://martinfowler.com/eaaDev/EventSourcing.html
 [active_model_validations]: https://api.rubyonrails.org/classes/ActiveModel/Validations.html#module-ActiveModel::Validations-label-Active+Model+Validations
