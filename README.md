@@ -24,6 +24,44 @@ command.name # => "name"
 command.email # => "email"
 ```
 
+### Command Handlers
+
+You can also optionally include `EventSourcery::Rails::CommandHandler` to use
+use a callback DSL for binding commands. This DSL allows your application code
+to use all command handlers with `#call`.
+
+**Todo**
+
+- [ ] Consider switching to a base class with common initializer and
+    `with_aggregate`
+- [ ] Introduce API for invoking all known command handlers with an array of
+    commands.
+
+```ruby
+class UserCommandHandler
+  include EventSourcery::Rails::CommandHandler
+
+  attr_reader :repository
+
+  def initialize(repository: EventSourceryRails.repository)
+    @repository = repository
+  end
+
+  on AddUser do |command|
+    aggregate = repository.load(UserAggregate, aggregate_id)
+    aggregate.add(name: command.name,
+                  email: command.email)
+    repository.save(aggregate)
+  end
+
+  on UpdateUserEmail do |command|
+    aggregate = repository.load(UserAggregate, aggregate_id)
+    aggregate.update_email(email: command.email)
+    repository.save(aggregate)
+  end
+end
+```
+
 ## Installation
 Add the following line to your Gemfile.
 
